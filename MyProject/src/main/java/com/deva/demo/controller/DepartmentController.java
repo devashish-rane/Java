@@ -1,6 +1,8 @@
 package com.deva.demo.controller;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deva.demo.Entity.Department;
 import com.deva.demo.Service.DepartmentServiceImplement;
 import com.deva.demo.Service.DepartmentServiceInterface;
+import com.deva.demo.error.DepartmentNotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -41,9 +44,13 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/getDept/{id}")
-	public Department getOneDepartments(@PathVariable long id) {
-		
-		return deptService.findOne(id);
+	public Department getOneDepartments(@PathVariable long id) throws DepartmentNotFoundException {
+		Optional<Department> opDept = deptService.findOne(id);
+		//Should have handled this in service layer
+		if(!opDept.isPresent()) {
+			throw new DepartmentNotFoundException("Department not available.");
+		}
+		return opDept.get();
 	}
 	
 	@DeleteMapping("/deleteDept/{id}")

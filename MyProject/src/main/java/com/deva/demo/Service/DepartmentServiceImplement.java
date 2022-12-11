@@ -2,6 +2,7 @@ package com.deva.demo.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,8 @@ public class DepartmentServiceImplement implements DepartmentServiceInterface {
 		
 	}
 
-	public Department findOne(long id) {
-		
-		return deptRepo.findById(id).get();
+	public Optional<Department> findOne(long id) {
+		return deptRepo.findById(id);
 	}
 	
 	public long deleteOne(long id) {

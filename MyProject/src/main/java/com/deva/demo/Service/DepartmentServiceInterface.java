@@ -1,6 +1,7 @@
 package com.deva.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public interface DepartmentServiceInterface {
 
 	List<Department> findAll();
 	
-	Department findOne(long id);
+	Optional<Department> findOne(long id);
 	
 	long deleteOne(long id);
 
