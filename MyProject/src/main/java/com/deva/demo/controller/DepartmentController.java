@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,9 @@ public class DepartmentController {
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
 	
+	@Value("${some.value.url}")
+	private String hiValue;
+	
 	@Autowired
 	private DepartmentServiceInterface deptService;
 	
@@ -41,6 +45,12 @@ public class DepartmentController {
 	public List<Department> getDepartments() {
 		
 		return deptService.findAll();
+	}
+	
+	@GetMapping("/hi")
+	public String sayHi() {
+		
+		return hiValue;
 	}
 	
 	@GetMapping("/getDept/{id}")
